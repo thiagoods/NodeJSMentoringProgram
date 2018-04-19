@@ -1,0 +1,21 @@
+{
+  "name": "nodejsmentoringprogram",
+  "version": "1.0.0",
+  "description": "Epam's NodeJS mentoring program for developers",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node -- ./app.js",
+    "test": "mocha"
+  },
+  "author": "Thiago Oliveira",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.3"
+  }
+}
