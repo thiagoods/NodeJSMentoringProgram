@@ -1,12 +1,12 @@
 import config from './config';
-import { User, Product, DirWatcher } from './modules';
+import { User, Product, DirWatcher, Importer } from './modules';
 
 const user = new User();
 const product = new Product();
-
 const myWatcher = new DirWatcher();
+const importer = new Importer(myWatcher);
 
-myWatcher.watch('./', 1000);
+myWatcher.watch(config.csvFolder, 1000);
 
 console.log(config.name);
 console.log('============================');

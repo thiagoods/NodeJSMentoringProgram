@@ -17,5 +17,8 @@
     "babel-register": "^6.26.0",
     "mocha": "^5.1.1",
     "nodemon": "^1.17.3"
+  },
+  "dependencies": {
+    "csv-tools": "^1.1.1"
   }
 }

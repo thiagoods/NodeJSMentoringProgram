@@ -18,18 +18,12 @@ export default class DirWatcher extends EventEmitter {
 	watch(path, delay) {
 		this.timer = setInterval(() => {
 			fs.readdir(path, (error, files) => {
-
 				if (error) {
 					console.log('An error has occured reading the specified path: ', error);
 					return false;
 				}
 
-				if (!this.content) {
-					this.content = files;
-					return;
-				}
-
-				if (isEqualArray(files, this.content)) {
+				if (!this.content || !isEqualArray(files, this.content)) {
 					this.content = files;
 					super.emit('change', files);
 				}
