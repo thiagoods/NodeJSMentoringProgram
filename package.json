@@ -19,6 +19,9 @@
     "nodemon": "^1.17.3"
   },
   "dependencies": {
-    "csv-tools": "^1.1.1"
+    "commander": "^2.15.1",
+    "csv-tools": "^1.1.1",
+    "csvjson": "^5.0.0",
+    "through2": "^2.0.3"
   }
 }
