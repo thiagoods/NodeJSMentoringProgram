@@ -5,6 +5,11 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node -- ./app.js",
+    "plain-server": "nodemon --exec babel-node -- ./servers/plain-text-server.js",
+    "json-server": "nodemon --exec babel-node -- ./servers/json-server.js",
+    "html-server": "nodemon --exec babel-node -- ./servers/html-server.js",
+    "html-server-stream": "nodemon --exec babel-node -- ./servers/html-server.js --stream",
+    "echo-server": "nodemon --exec babel-node -- ./servers/echo-server.js",
     "test": "mocha"
   },
   "author": "Thiago Oliveira",
@@ -22,6 +27,7 @@
     "commander": "^2.15.1",
     "csv-tools": "^1.1.1",
     "csvjson": "^5.0.0",
+    "express": "^4.16.3",
     "through2": "^2.0.3"
   }
 }
