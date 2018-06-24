@@ -30,16 +30,9 @@ function setRouter(passport) {
 		router.use('/api', tokenVerifier);
 
 	} else {
-		router.post('/auth', function(request, response, next) {
-			passport.authenticate('local', function(error, user, info) {
-				if (error) { return next(error); }
-				if (!user) { return response.redirect('/login'); }
-				request.logIn(user, function(error) {
-					if (error) { return next(error); }
-					return response.redirect('/api/products');
-				});
-			})(request, response, next)
-		});
+		router.post('/auth',
+			passport.authenticate('local', { successRedirect: '/api/products', failureRedirect: '/login' })
+		);
 
 		router.get('/auth/facebook',
 			passport.authenticate('facebook', { scope: [ 'email' ] })

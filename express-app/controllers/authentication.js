@@ -8,8 +8,7 @@ function authenticateJWT(request, response) {
 		const token = jwt.sign(user, SECRET, {
 			expiresIn: 1440
 		});
-		const payload = { user, token };
-		response.send(JSON.stringify(payload));
+		response.redirect(`/api/products?token=${token}`);
 	} else {
 		response.status(404).send('User not found');
 	}
