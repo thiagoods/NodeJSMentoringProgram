@@ -1,7 +1,9 @@
 import cookie from 'cookie';
 
 const cookieParser = (request, response, next) => {
-	request.parsedCookies = cookie.parse(request.headers.cookie);
+	if(request.headers.cookie) {
+		request.parsedCookies = cookie.parse(request.headers.cookie);
+	}
 	next();
 };
 
