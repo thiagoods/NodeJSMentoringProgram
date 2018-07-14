@@ -21,6 +21,14 @@ function setRouter(passport) {
 		response.render('index');
 	});
 
+	router.get('/add-product', function(request, response) {
+		response.render('addProduct');
+	});
+
+	router.get('/add-user', function(request, response) {
+		response.render('addUser');
+	});
+
 	if (process.argv[2] === '--jwt') {
 
 		router.post('/auth', function(request, response) {
@@ -82,6 +90,10 @@ function setRouter(passport) {
 
 	router.get('/api/users', (request, response) => {
 		controller.allUsers(request, response);
+	});
+
+	router.post('/api/users', (request, response) => {
+		controller.addUser(request, response);
 	});
 
 	return router;

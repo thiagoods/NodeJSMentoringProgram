@@ -1,0 +1,7 @@
+const path = require('path');
+
+module.exports = {
+  "config": path.resolve('./express-app/config', 'config.json'),
+  "models-path": path.resolve('./express-app/models'),
+  "migrations-path": path.resolve('./express-app/migrations')
+};

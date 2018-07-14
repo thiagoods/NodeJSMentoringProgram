@@ -1,34 +1,43 @@
-import products from '../models/products';
-import reviews from '../models/reviews';
-import users from '../models/users';
+import db from '../models';
 
 function allProducts(request, response) {
-	response.send(JSON.stringify(products));
+	return db.productModel.findAll().then(product => response.json(product));
 };
 
 function singleProduct(request, response) {
 	const id = Number(request.params.id);
 	if (!id) response.send('You should pass a product id');
-	const searchedProduct = products.filter((product) => product.id === id);
-	if (!searchedProduct.length) response.send('No products found with the given id');
-	response.send(JSON.stringify(searchedProduct));
+	return db.productModel.findById(id)
+		.then(product => response.json(product))
+		.catch(error => response.status(400).send('No products found with the given id'));
 };
 
 function productReviews(request, response) {
 	const id = Number(request.params.id);
 	if (!id) response.send('You should pass a product id');
-	const searchedReviews = reviews.filter((review) => review.productId === id);
-	if (!searchedReviews.length) response.send('No reviews found with for the given product id');
-	response.send(JSON.stringify(searchedReviews));
+	return db.reviewModel.findAll({
+			where: {
+				productId: id
+			}
+		})
+		.then(reviews => response.json(reviews))
+		.catch(error => response.status(400).send('No reviews found for the given product id'));
 };
 
 function addProduct(request, response) {
-	products.push(request.body);
-	response.send(request.body);
+	return db.productModel.create(request.body)
+		.then(product => response.status(201).send(product))
+		.catch(error => response.status(400).send(error));
+};
+
+function addUser(request, response) {
+	return db.userModel.create(request.body)
+		.then(user => response.status(201).send(user))
+		.catch(error => response.status(400).send(error));
 };
 
 function allUsers(request, response) {
-	response.send(JSON.stringify(users));
+	db.userModel.findAll().then(users => response.json(users));
 };
 
-export default { allProducts, singleProduct, productReviews, addProduct, allUsers };
+export default { allProducts, singleProduct, productReviews, addProduct, addUser, allUsers };

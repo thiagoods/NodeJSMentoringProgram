@@ -1,0 +1,25 @@
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible", content="ie=edge")
+		title= 'Node JS Mentoring Page'
+	body
+		h1= 'Enter the details of the product'
+		form(action="/api/products", method="post")
+			label='Name:'
+				input(type="text", name="name")
+			br
+			label='Brand:'
+				input(type="text", name="brand")
+			br
+			label='Price:'
+				input(type="number", name="price", step="0.01")
+			br
+			label='Color:'
+				input(type="text", name="color")
+			br
+			label='Size:'
+				input(type="text", name="size")
+			br
+			input(type="submit", value="Add")
