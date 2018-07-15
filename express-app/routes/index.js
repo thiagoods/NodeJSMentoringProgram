@@ -25,6 +25,10 @@ function setRouter(passport) {
 		response.render('addProduct');
 	});
 
+	router.get('/add-city', function(request, response) {
+		response.render('addCity');
+	});
+
 	router.get('/add-user', function(request, response) {
 		response.render('addUser');
 	});
@@ -37,7 +41,7 @@ function setRouter(passport) {
 
 		router.use('/api', tokenVerifier);
 
-	} else {
+	} else if (passport.hasOwnProperty()){
 		router.post('/auth',
 			passport.authenticate('local', { successRedirect: '/api/products', failureRedirect: '/login' })
 		);
@@ -80,6 +84,10 @@ function setRouter(passport) {
 		controller.singleProduct(request, response);
 	});
 
+	router.delete('/api/products/:id', (request, response) => {
+		controller.removeProduct(request, response);
+	});
+
 	router.get('/api/products/:id/reviews', (request, response) => {
 		controller.productReviews(request, response);
 	});
@@ -94,6 +102,30 @@ function setRouter(passport) {
 
 	router.post('/api/users', (request, response) => {
 		controller.addUser(request, response);
+	});
+
+	router.delete('/api/users/:id', (request, response) => {
+		controller.removeUser(request, response);
+	});
+
+	router.get('/api/city', (request, response) => {
+		controller.getRandomCity(request, response);
+	});
+
+	router.get('/api/cities', (request, response) => {
+		controller.allCities(request, response);
+	});
+
+	router.post('/api/cities', (request, response) => {
+		controller.addCity(request, response);
+	});
+
+	router.put('/api/cities/:id', (request, response) => {
+		controller.updateCity(request, response);
+	});
+
+	router.delete('/api/cities/:id', (request, response) => {
+		controller.removeCity(request, response);
 	});
 
 	return router;

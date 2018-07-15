@@ -7,6 +7,9 @@ html(lang="en")
 	body
 		h1= 'Enter the user name'
 		form(action="/api/users", method="post")
+			label='Id:'
+				input(type="Number", name="_id")
+			br
 			label='Name:'
 				input(type="text", name="name")
 			br

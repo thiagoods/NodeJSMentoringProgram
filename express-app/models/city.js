@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  _id: {
+const citySchema = new Schema({
+	_id: {
     type: Number,
     required: true
   },
@@ -11,11 +11,20 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  country: {
+    type: String,
+    required: true
+  },
+  capital: Boolean,
+  location: {
+    lat: Number,
+    long: Number
+  },
   createdAt: Date,
   lastModifiedDate: Date
 });
 
-userSchema.pre('save', function(next) {
+citySchema.pre('save', function(next) {
   var currentDate = new Date();
 
   this.lastModifiedDate = currentDate;
@@ -27,6 +36,6 @@ userSchema.pre('save', function(next) {
   next();
 });
 
-var User = mongoose.model('User', userSchema);
+const City = mongoose.model('City', citySchema);
 
-export default User;
+export default City;

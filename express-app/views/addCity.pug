@@ -5,24 +5,24 @@ html(lang="en")
 		meta(http-equiv="X-UA-Compatible", content="ie=edge")
 		title= 'Node JS Mentoring Page'
 	body
-		h1= 'Enter the details of the product'
-		form(action="/api/products", method="post")
+		h1= 'Enter the details of the city'
+		form(action="/api/cities", method="post")
 			label='Id:'
 				input(type="Number", name="_id")
 			br
 			label='Name:'
 				input(type="text", name="name")
 			br
-			label='Brand:'
-				input(type="text", name="brand")
+			label='Country:'
+				input(type="text", name="country")
 			br
-			label='Price:'
-				input(type="number", name="price", step="0.01")
+			label='Capital?:'
+				input(type="checkbox", name="isCapital")
 			br
-			label='Color:'
-				input(type="text", name="color")
+			label='Latitude:'
+				input(type="number", name="lat", step="0.0001")
 			br
-			label='Size:'
-				input(type="text", name="size")
+			label='Longitude:'
+				input(type="number", name="long", step="0.0001")
 			br
 			input(type="submit", value="Add")
