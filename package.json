@@ -4,7 +4,7 @@
   "description": "Epam's NodeJS mentoring program for developers",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -- ./express-app/index.js",
+    "start": "cd swagger && npm start",
     "plain-server": "nodemon --exec babel-node -- ./servers/plain-text-server.js",
     "json-server": "nodemon --exec babel-node -- ./servers/json-server.js",
     "html-server": "nodemon --exec babel-node -- ./servers/html-server.js",

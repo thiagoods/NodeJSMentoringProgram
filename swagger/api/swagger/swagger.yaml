@@ -1,0 +1,440 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  contact:
+    email: thiago@epam.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+
+paths:
+  '/api/products':
+    get:
+      x-swagger-router-controller: products
+      tags:
+      - developers
+      summary: return all the available products
+      operationId: allProducts
+      description: |
+        In this endpoint you can find an array with all registered products
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        400:
+          description: bad input parameter
+    post:
+      x-swagger-router-controller: products
+      tags:
+      - admins
+      summary: adds a product
+      operationId: addProduct
+      description: Adds a product to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: Product
+        description: Inventory item to add
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+  '/api/products/{id}':
+    get:
+      x-swagger-router-controller: products
+      tags:
+      - developers
+      summary: return a product by it's ID
+      operationId: singleProduct
+      parameters:
+        - name: id
+          in: path
+          description: product id (product.id,product1.id, ... productx.id)
+          required: true
+          type: integer
+      description: |
+        In this endpoint you can find an product by it's Id
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        400:
+          description: bad input parameter
+    delete:
+      x-swagger-router-controller: products
+      tags:
+      - admins
+      summary: delete a product given it's id
+      operationId: deleteProduct
+      description: |
+        In this endpoint you can delete a registered product by it's id
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product which will be deleted
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Success
+        403:
+          description: Permissions denied
+        404:
+          description: Product not found
+  '/api/products/{id}/reviews':
+    get:
+      x-swagger-router-controller: reviews
+      tags:
+      - developers
+      summary: return all the product reviews by it's ID
+      operationId: productReviews
+      parameters:
+        - name: id
+          in: path
+          description: product id (product.id,product1.id, ... productx.id)
+          required: true
+          type: integer
+      description: |
+        In this endpoint you can find all product reivews by it's Id
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+        400:
+          description: bad input parameter
+  '/api/users':
+    get:
+      x-swagger-router-controller: users
+      tags:
+      - developers
+      summary: return all the available users
+      operationId: allUsers
+      description: |
+        In this endpoint you can find an array with all registered users
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        400:
+          description: bad input parameter
+    post:
+      x-swagger-router-controller: users
+      tags:
+      - admins
+      summary: adds a user
+      operationId: addUser
+      description: Adds a user to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UserItem
+        description: User to add
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        201:
+          description: user created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing user already exists
+  '/api/users/{id}':
+    delete:
+      x-swagger-router-controller: users
+      tags:
+      - admins
+      summary: delete a user given it's id
+      operationId: deleteUser
+      description: |
+        In this endpoint you can delete a registered user by it's id
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user which will be deleted
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Success
+        403:
+          description: Permissions denied
+        404:
+          description: User not found
+  '/api/city':
+    get:
+      x-swagger-router-controller: cities
+      tags:
+      - developers
+      summary: return a random city among the available cities
+      operationId: randomCity
+      description: |
+        In this endpoint you can find a random city among all available cities
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        400:
+          description: bad input parameter
+  '/api/cities':
+    get:
+      x-swagger-router-controller: cities
+      tags:
+      - developers
+      summary: return all the available cities
+      operationId: allCities
+      description: |
+        In this endpoint you can find an array with all registered cities
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results available
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        400:
+          description: bad input parameter
+    post:
+      x-swagger-router-controller: cities
+      tags:
+      - admins
+      summary: adds a city
+      operationId: addCity
+      description: Adds a city to the system
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CityItem
+        description: User to add
+        schema:
+          $ref: '#/definitions/City'
+      responses:
+        201:
+          description: city created
+        400:
+          description: invalid input, object invalid
+  '/api/cities/{id}':
+    put:
+      x-swagger-router-controller: cities
+      tags:
+      - admins
+      summary: updates a city using it's id
+      operationId: updateCity
+      description: Update a city in the system by it's id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CityItem
+        description: City to update
+        schema:
+          $ref: '#/definitions/City'
+      - name: id
+        in: path
+        description: ID of the product which will be deleted
+        required: true
+        type: integer
+        format: int64
+      responses:
+        201:
+          description: city created/updated
+        400:
+          description: invalid input, object invalid
+    delete:
+      x-swagger-router-controller: cities
+      tags:
+      - admins
+      summary: delete a city given it's id
+      operationId: deleteCity
+      description: |
+        In this endpoint you can delete a registered city by it's id
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user which will be deleted
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Success
+        403:
+          description: Permissions denied
+        404:
+          description: City not found
+definitions:
+  Product:
+    type: object
+    required:
+      - _id
+      - name
+      - brand
+      - price
+      - size
+    properties:
+      _id:
+        type: integer
+        format: int64
+        example: 123
+      name:
+        type: string
+        example: jacket
+      brand:
+        type: string
+        example: Supreme
+      price:
+        type: number
+        example: 99.90
+      color:
+        type: string
+        example: blue
+      size:
+        type: string
+        example: small
+      createdAt:
+        type: string
+        format: date-time
+      lastModifiedDate:
+        type: string
+        format: date-time
+  User:
+    type: object
+    required:
+      - _id
+      - name
+    properties:
+      _id:
+        type: integer
+        format: int64
+        example: 123
+      name:
+        type: string
+        example: Thiago
+      createdAt:
+        type: string
+        format: date-time
+      lastModifiedDate:
+        type: string
+        format: date-time
+  City:
+    type: object
+    required:
+      - _id
+      - name
+      - country
+    properties:
+      _id:
+        type: integer
+        format: int64
+        example: 123
+      name:
+        type: string
+        example: Krakow
+      country:
+        type: string
+        example: Poland
+      capital:
+        type: boolean
+        example: false
+      location:
+        type: object
+        properties:
+          lat:
+            type: number
+            example: 41.4215
+          long:
+            type: number
+            example: 41.4215
+      createdAt:
+        type: string
+        format: date-time
+      lastModifiedDate:
+        type: string
+        format: date-time
+  Review:
+    type: object
+    required:
+      - _id
+      - productId
+      - authorId
+      - text
+    properties:
+      _id:
+        type: integer
+        format: int64
+        example: 123
+      productId:
+        type: integer
+        format: int64
+        example: 123
+      authorId:
+        type: integer
+        format: int64
+        example: 123
+      text:
+        type: string
+        example: Awesome product
+      createdAt:
+        type: string
+        format: date-time
+      lastModifiedDate:
+        type: string
+        format: date-time
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /
+schemes:
+ - https
